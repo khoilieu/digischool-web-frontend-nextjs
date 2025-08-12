@@ -23,7 +23,7 @@ export function Accordion({ items = [] }) {
               <RAccordion.Trigger
                 className={cn(
                   "group flex flex-1 cursor-pointer items-center justify-between leading-none outline-none",
-                  "text-2xl text-title h-20 hover:text-muted font-sans font-medium"
+                  "text-lg md:text-2xl text-title min-h-[60px] md:h-20 hover:text-muted font-sans font-medium px-4 md:px-0"
                 )}
               >
                 {item.title}
@@ -42,7 +42,7 @@ export function Accordion({ items = [] }) {
                 "data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden"
               )}
             >
-              <div className="py-5">{item.body}</div>
+              <div className="py-3 md:py-5 px-4 md:px-0">{item.body}</div>
             </RAccordion.Content>
           </RAccordion.Item>
         ))}

@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Icon } from "@iconify/react";
 import { cn } from "@/lib/utils";
@@ -9,6 +9,18 @@ import { ThemeSwitch } from "#/ThemeSwitch";
 
 export function Header({ logo, links, buttons, className, ...rest }) {
   const [open, setOpen] = useState(false);
+  
+  // Tự động đóng menu khi màn hình thay đổi kích thước
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) { // md breakpoint
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   const scrollToSection = (href) => {
     if (href.startsWith('#')) {
@@ -47,11 +59,19 @@ export function Header({ logo, links, buttons, className, ...rest }) {
               <li key={index} className="relative">
                 {link.hasDropdown ? (
                   <Menu as="div" className="relative inline-block text-left">
-                    <Menu.Button className="flex items-center gap-1 text-sm font-normal text-white hover:text-white/80 cursor-pointer transition-colors duration-200 group">
+                    <Menu.Button className={cn(
+                      "flex items-center gap-1 text-sm font-normal cursor-pointer transition-colors duration-200 group",
+                      open 
+                        ? "text-[#29375C] hover:text-[#29375C]/80 px-4 rounded-md" 
+                        : "text-white hover:text-white/80"
+                    )}>
                       {link.label}
                       <Icon 
                         icon={link.icon} 
-                        className="w-4 h-4 transition-transform duration-200 group-data-[headlessui-state=open]:rotate-180" 
+                        className={cn(
+                          "w-4 h-4 transition-transform duration-200 group-data-[headlessui-state=open]:rotate-180",
+                          open ? "text-[#29375C]" : "text-white"
+                        )}
                       />
                     </Menu.Button>
                     <Transition
@@ -62,7 +82,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
                       leaveFrom="transform opacity-100 scale-100 translate-y-0"
                       leaveTo="transform opacity-0 scale-95 -translate-y-2"
                     >
-                      <Menu.Items className="absolute left-0 mt-3 w-56 origin-top-left rounded-md bg-white dark:bg-gray-800 shadow-2xl ring-1 ring-black/5 dark:ring-white/10 focus:outline-none z-50 overflow-hidden">
+                      <Menu.Items className="absolute left-0 mt-3 w-48 md:w-56 origin-top-left rounded-md bg-white dark:bg-gray-800 shadow-2xl ring-1 ring-black/5 dark:ring-white/10 focus:outline-none z-50 overflow-hidden">
                         <div className="py-2">
                           {link.dropdownItems.map((item, itemIndex) => (
                             <Menu.Item key={itemIndex}>
@@ -70,8 +90,8 @@ export function Header({ logo, links, buttons, className, ...rest }) {
                                 <button
                                   onClick={() => scrollToSection(item.href)}
                                   className={cn(
-                                    active ? 'bg-[#29375C]/10 text-[#29375C] dark:bg-[#29375C]/20 dark:text-[#29375C]' : 'text-gray-700 dark:text-gray-200',
-                                    'block w-full text-left px-4 py-3 text-sm font-medium hover:bg-[#29375C]/10 dark:hover:bg-[#29375C]/20 hover:text-[#29375C] dark:hover:text-[#29375C] transition-all duration-200'
+                                    active ? 'bg-[#29375C]/10 text-[#29375C] dark:bg-[#29375C]/20 dark:text-[#29375C]' : 'text-[#29375C] dark:text-[#29375C]',
+                                    'block w-full text-left px-3 md:px-4 py-2 md:py-3 text-sm font-medium hover:bg-[#29375C]/10 dark:hover:bg-[#29375C]/20 hover:text-[#29375C] dark:hover:text-[#29375C] transition-all duration-200'
                                   )}
                                 >
                                   {item.label}
@@ -88,7 +108,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
                     href={link.href}
                     className={
                       open
-                        ? "text-sm font-normal text-white hover:bg-white/10 py-3 px-4 rounded-md"
+                        ? "text-sm font-normal text-[#29375C] hover:bg-white/10 py-3 px-4 rounded-md"
                         : "text-sm font-normal text-white hover:text-white/80"
                     }
                     onClick={() => setOpen(false)}
