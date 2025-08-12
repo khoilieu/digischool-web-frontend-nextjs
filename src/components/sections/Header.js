@@ -32,7 +32,7 @@ export function Header({ logo, links, buttons, className, ...rest }) {
   };
 
   return (
-    <header className="fixed w-full bg-[#29375C] dark:bg-base-950/50 backdrop-blur-xl z-50 h-20">
+    <header className="fixed w-full bg-[#29375C] dark:bg-base-900 backdrop-blur-xl z-50 h-20">
       <nav
         className={cn(
           "relative h-20 container px-0 mx-auto border-b border-base flex flex-wrap justify-start items-center gap-4 lg:gap-8",

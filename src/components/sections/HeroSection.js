@@ -12,7 +12,7 @@ export function HeroSection({
   ...rest
 }) {
   return (
-    <section {...rest} className="min-h-screen pt-20 sm:pt-24 md:pt-28 lg:pt-20">
+    <section {...rest} className="min-h-screen pt-20 sm:pt-24 md:pt-28 lg:pt-20 dark:bg-base-900">
       <div className="container px-4 mx-auto h-full">
         <div className="flex flex-col lg:flex-row items-center justify-center min-h-[calc(100vh-5rem)] gap-6 md:gap-8 lg:gap-12">
           {/* Left Content */}

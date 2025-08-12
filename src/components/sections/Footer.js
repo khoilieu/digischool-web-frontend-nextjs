@@ -15,7 +15,7 @@ import {
 
 export function Footer({ copyright, logo, links, social, ...rest }) {
   return (
-    <footer className="bg-[#29375C]  text-white pt-12" {...rest}>
+    <footer className="bg-[#29375C] dark:bg-base-900 text-white pt-12" {...rest}>
       <div className="container px-4 mx-auto">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pb-8">
