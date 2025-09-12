@@ -42,7 +42,7 @@ export const header = {
       href: "#tutorials",
     },
     {
-      label: "Câu hỏi thường gặp",
+      label: "Câu hỏi",
       href: "#faqs",
     },
   ],
